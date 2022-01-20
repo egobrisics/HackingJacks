@@ -21,14 +21,39 @@ namespace HackingJacks.MedicalEntities.Controllers
             _medicalEntityService = medicalEntityService;
             _medicalTextService = medicalTextService;
         }
-        
+
+        [HttpGet("processAudioFile/{fileName}")]
+        public async Task<JsonResult> ProcessTranscript(string fileName)
+        {
+            var resultAudio = await _medicalTextService.TranscribeAsync(fileName);
+            if (!resultAudio.Success)
+            {
+                return Json(resultAudio.Error.ToString());
+            }
+
+            var resultText = await _medicalTextService.GetTranscribedTextAsync(resultAudio.Item.Id);
+            if (!resultText.Success)
+            {
+                return Json(resultText.Error.ToString());
+            }
+
+            var resultEntities = await _medicalEntityService.ProcessTextAsync(resultAudio.Item.Id, resultText.Item);
+
+            if (!resultEntities.Success)
+            {
+                return Json(resultEntities.Error.ToString());
+            }
+
+            return Json(resultEntities.Item);
+        }
+
         [HttpGet("processTranscript/{id}")]
         public async Task<JsonResult> ProcessTranscript(Guid id)
         {
             var resultText = await _medicalTextService.GetTranscribedTextAsync(id);
             if (!resultText.Success)
             {
-                return Json(resultText.Item);
+                return Json(resultText.Error.ToString());
             }
 
             var resultEntities  = await _medicalEntityService.ProcessTextAsync(id, resultText.Item);
@@ -38,8 +63,7 @@ namespace HackingJacks.MedicalEntities.Controllers
                 return Json(resultEntities.Error.ToString());
             }
 
-            //TODO
-            return Json("OK");
+            return Json(resultEntities.Item);
         }
     }
 }
