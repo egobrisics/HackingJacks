@@ -8,5 +8,7 @@
         public PatientMedicationModel[] Medications { get; set; }
         public PatientProcedureModel[] Procedures { get; set; }
         public PatientSocialHistoryModel SocialHistory { get; set; }
+
+        public PatientDiagnosisModel[] Diagnoses { get; set; }
     }
 }

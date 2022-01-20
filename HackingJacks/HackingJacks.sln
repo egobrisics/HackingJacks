@@ -3,37 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks", "HackingJacks\HackingJacks.csproj", "{95768ACD-A73B-42A1-AB1A-A22C65B2910A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks", "HackingJacks\HackingJacks.csproj", "{95768ACD-A73B-42A1-AB1A-A22C65B2910A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Audio", "HackingJacks.Audio\HackingJacks.Audio.csproj", "{29F14914-B669-46CF-9CA9-D84FF0DCBDBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Audio", "HackingJacks.Audio\HackingJacks.Audio.csproj", "{29F14914-B669-46CF-9CA9-D84FF0DCBDBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Audio.Domain", "HackingJacks.Audio.Domain\HackingJacks.Audio.Domain.csproj", "{7F038F45-13C5-4EB8-AD95-EAF751301FFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Audio.Domain", "HackingJacks.Audio.Domain\HackingJacks.Audio.Domain.csproj", "{7F038F45-13C5-4EB8-AD95-EAF751301FFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.DTOs", "HackingJacks.DTOs\HackingJacks.DTOs.csproj", "{1569C40D-5714-4854-A8A8-403D788162AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.DTOs", "HackingJacks.DTOs\HackingJacks.DTOs.csproj", "{1569C40D-5714-4854-A8A8-403D788162AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.General", "HackingJacks.General\HackingJacks.General.csproj", "{86220989-CD8A-414D-B6AD-13DB7DDB68A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.General", "HackingJacks.General\HackingJacks.General.csproj", "{86220989-CD8A-414D-B6AD-13DB7DDB68A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Models", "HackingJacks.Models\HackingJacks.Models.csproj", "{62122861-B804-4655-90E9-03CCA8E3D957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Models", "HackingJacks.Models\HackingJacks.Models.csproj", "{62122861-B804-4655-90E9-03CCA8E3D957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Audio.Services", "HackingJacks.Audio.Services\HackingJacks.Audio.Services.csproj", "{CC9D372B-70A0-4689-9A1A-40E71278842A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Audio.Services", "HackingJacks.Audio.Services\HackingJacks.Audio.Services.csproj", "{CC9D372B-70A0-4689-9A1A-40E71278842A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Abstract.Services", "HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj", "{2AD7726B-87EB-43F2-A074-A78555871EF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Abstract.Services", "HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj", "{2AD7726B-87EB-43F2-A074-A78555871EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Abstract.Repositories", "HackingJacks.Abstract.Repositories\HackingJacks.Abstract.Repositories.csproj", "{CA97544C-A609-4A69-BD73-F8B0988F8C86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Abstract.Repositories", "HackingJacks.Abstract.Repositories\HackingJacks.Abstract.Repositories.csproj", "{CA97544C-A609-4A69-BD73-F8B0988F8C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patients", "HackingJacks.Patient\HackingJacks.Patients.csproj", "{E8A3307A-28CA-4A6E-BEC6-A9184173D54B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Patients", "HackingJacks.Patient\HackingJacks.Patients.csproj", "{E8A3307A-28CA-4A6E-BEC6-A9184173D54B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patients.Domain", "HackingJacks.Patient.Domain\HackingJacks.Patients.Domain.csproj", "{99563231-572B-4DB8-8557-849ED63B4D7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Patients.Domain", "HackingJacks.Patient.Domain\HackingJacks.Patients.Domain.csproj", "{99563231-572B-4DB8-8557-849ED63B4D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patients.Services", "HackingJacks.Patient.Services\HackingJacks.Patients.Services.csproj", "{02A62E91-CE40-4DAB-B676-14DC42C41413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.Patients.Services", "HackingJacks.Patient.Services\HackingJacks.Patients.Services.csproj", "{02A62E91-CE40-4DAB-B676-14DC42C41413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText", "HackingJacks.MedicalText\HackingJacks.MedicalText.csproj", "{F72DBCA7-81BC-4034-A982-8379F4A56486}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.MedicalText", "HackingJacks.MedicalText\HackingJacks.MedicalText.csproj", "{F72DBCA7-81BC-4034-A982-8379F4A56486}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText.Services", "HackingJacks.MedicalText.Services\HackingJacks.MedicalText.Services.csproj", "{9098F305-CB1A-4F86-A115-C31C2FF5EA87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.MedicalText.Services", "HackingJacks.MedicalText.Services\HackingJacks.MedicalText.Services.csproj", "{9098F305-CB1A-4F86-A115-C31C2FF5EA87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalEntities", "HackingJacks.MedicalEntities\HackingJacks.MedicalEntities.csproj", "{555E6510-F74B-45E6-A45B-C4698FC9244E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.MedicalEntities", "HackingJacks.MedicalEntities\HackingJacks.MedicalEntities.csproj", "{555E6510-F74B-45E6-A45B-C4698FC9244E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalEntities.Services", "HackingJacks.MedicalEntities.Services\HackingJacks.MedicalEntities.Services.csproj", "{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackingJacks.MedicalEntities.Services", "HackingJacks.MedicalEntities.Services\HackingJacks.MedicalEntities.Services.csproj", "{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
