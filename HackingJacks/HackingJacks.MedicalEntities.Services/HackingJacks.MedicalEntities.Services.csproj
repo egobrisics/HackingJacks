@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="AWSSDK.ComprehendMedical" Version="3.7.2.11" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
   </ItemGroup>
 
 </Project>
