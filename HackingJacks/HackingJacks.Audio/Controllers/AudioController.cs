@@ -38,6 +38,19 @@ namespace HackingJacks.Audio.Controllers
             return Json(result.Item);
         }
 
+        [HttpPost("{SaveAsync}")]
+        public JsonResult SaveAsync(Stream file)
+        {
+            var result = _audioService.SaveAsync(file);
+
+            if (!result.Success)
+            {
+                return Json(result.Error.ToString());
+            }
+
+            return Json(result.Item);
+        }
+
         [HttpPost("{Save}")]
         public JsonResult Save(Stream file)
         {

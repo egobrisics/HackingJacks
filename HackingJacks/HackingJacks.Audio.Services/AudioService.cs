@@ -38,16 +38,16 @@ namespace HackingJacks.Audio.Services
             string fileName = sendAudioFileToS3(_BucketName, stream);
             var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);            
             var response = await client.GetObjectAsync(_BucketName, fileName);
-            //using (var streamReader = new StreamReader(response.ResponseStream))
-            //{
-            //    var data = streamReader.ReadToEnd();
-            //    var medicalTranscript = Newtonsoft.Json.JsonConvert.DeserializeObject<DTOs.MedicalAudio>(data);
+            string audioUrl = string.Empty;
+            using (var streamReader = new StreamReader(response.ResponseStream))
+            {
+                var data = streamReader.ReadToEnd();
+                var medicalAudio = Newtonsoft.Json.JsonConvert.DeserializeObject<DTOs.MedicalAudio>(data);
 
-            //    //return new Result<string>(medicalTranscript.Results.Items.FirstOrDefault().ToString());
-            //}
-            //string audioUrl = response.Metadata.;
-            SendMedicalReordToDatabase(fileName);
-            return _audioRepository.Save(stream);
+                audioUrl = medicalAudio.AudioMediaUri;
+            }
+            SendMedicalReordToDatabase(audioUrl);
+            return _audioRepository.SaveAsync(stream);
         }
 
         public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
@@ -71,13 +71,13 @@ namespace HackingJacks.Audio.Services
             return fileNameInS3;
         }
 
-        public void SendMedicalReordToDatabase(string fileId)
+        public void SendMedicalReordToDatabase(string audioUrl)
         {
 
             var medicalAudio = new MedicalAudio
             {
                 Id = new Guid(),
-                AudioMediaUri = "",
+                AudioMediaUri = audioUrl,
                 DateCreated = DateTime.Now,
                 DateUpdated = DateTime.Now,
                 Status = MedicalAudio.MedicalAudioStatuses.Created,
