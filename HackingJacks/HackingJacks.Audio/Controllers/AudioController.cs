@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +37,19 @@ namespace HackingJacks.Audio.Controllers
 
             return Json(result.Item);
         }
-      
+
+        [HttpPost("{Save}")]
+        public JsonResult Save(Stream file)
+        {
+            var result = _audioService.SaveAsync(file);
+
+            if (!result.Success)
+            {
+                return Json(result.Error.ToString());
+            }
+
+            return Json(result.Item);
+        }
+
     }
 }

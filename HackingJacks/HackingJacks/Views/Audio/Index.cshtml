@@ -1,8 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Audio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form>    
+    <p>Select the audio file to upload</p>
+    <input type = "file" id ="fileSelect" accept="audio/*"/>
+    <button type="submit" id ="btnSubmit" onclick="Upload()">Upload</button>
+
+    <script>
+      function myFunction() {
+        //Write your function here to upload it to Amazon S3
+        
+      }
+    </script>
+</form>
