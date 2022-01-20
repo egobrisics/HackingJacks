@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,6 +25,8 @@ namespace HackingJacks.DTOs
         public Guid PatientId { get; set; }
 
         public MedicalAudioStatuses Status { get; set; }
+        [JsonProperty("results")]
+        public Results Results { get; set; }
 
     }
 }
