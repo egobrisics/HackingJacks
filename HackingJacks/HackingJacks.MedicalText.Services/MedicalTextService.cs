@@ -1,4 +1,5 @@
 ﻿using Amazon;
+using Amazon.S3;
 using Amazon.TranscribeService;
 using Amazon.TranscribeService.Model;
 using HackingJacks.Abstract.Services;
@@ -6,6 +7,8 @@ using HackingJacks.Audio.Services.Abstract;
 using HackingJacks.DTOs;
 using HackingJacks.General;
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HackingJacks.MedicalText.Services
@@ -51,7 +54,7 @@ namespace HackingJacks.MedicalText.Services
                         MediaFileUri = medicalAudio.AudioMediaUri,
                     },
                     OutputBucketName = _outputBucketName,
-                    OutputKey = guid.ToString() + ".txt",
+                    OutputKey = guid.ToString(),
                     Specialty = Specialty.PRIMARYCARE,
                     Type = Amazon.TranscribeService.Type.CONVERSATION
                 };
@@ -67,9 +70,7 @@ namespace HackingJacks.MedicalText.Services
                         MedicalTranscriptionJobName = guid.ToString()
                     };
 
-                    // code block to be executed
                     jobResponse = await client.GetMedicalTranscriptionJobAsync(jobRequest);
-               
                 }
                 while (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.COMPLETED ||
                         jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.FAILED);
@@ -89,6 +90,28 @@ namespace HackingJacks.MedicalText.Services
             catch (Exception ex)
             {
                 return new Result<MedicalAudio>(ex);
+            }
+        }
+
+        public async Task<Result<string>> GetTranscribedTextAsync(Guid guid)
+        {
+            try
+            {
+                var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);
+                var objectResponse = await client.GetObjectAsync(_outputBucketName, guid.ToString());
+
+                using (var streamReader = new StreamReader(objectResponse.ResponseStream))
+                {
+                    var transcribedData = streamReader.ReadToEnd();
+                    var medicalTranscript = Newtonsoft.Json.JsonConvert.DeserializeObject<DTOs.MedicalTranscript>(transcribedData);
+
+                    return new Result<string>(medicalTranscript.Results.Transcripts.FirstOrDefault()?.Text);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new Result<string>(ex);
             }
         }
     }

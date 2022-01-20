@@ -17,6 +17,8 @@
     <ProjectReference Include="..\HackingJacks.Audio\HackingJacks.Audio.csproj" />
     <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
     <ProjectReference Include="..\HackingJacks.General\HackingJacks.General.csproj" />
+    <ProjectReference Include="..\HackingJacks.MedicalEntities.Services\HackingJacks.MedicalEntities.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.MedicalEntities\HackingJacks.MedicalEntities.csproj" />
     <ProjectReference Include="..\HackingJacks.MedicalText.Services\HackingJacks.MedicalText.Services.csproj" />
     <ProjectReference Include="..\HackingJacks.MedicalText\HackingJacks.MedicalText.csproj" />
     <ProjectReference Include="..\HackingJacks.Models\HackingJacks.Models.csproj" />

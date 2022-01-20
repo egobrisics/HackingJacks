@@ -20,10 +20,23 @@ namespace HackingJacks.MedicalText.Controllers
             _medicalTextService = medicalTextService;
         }
         
-        [HttpGet("Transcribe/{id}")]
+        [HttpGet("transcribe/{id}")]
         public async Task<JsonResult> Transcribe(Guid id)
         {
             var result = await _medicalTextService.TranscribeAsync(id);
+
+            if (!result.Success)
+            {
+                return Json(result.Error.ToString());
+            }
+
+            return Json(result.Item);
+        }
+
+        [HttpGet("transcribed/{id}")]
+        public async Task<JsonResult> TranscribedText(Guid id)
+        {
+            var result = await _medicalTextService.GetTranscribedTextAsync(id);
 
             if (!result.Success)
             {

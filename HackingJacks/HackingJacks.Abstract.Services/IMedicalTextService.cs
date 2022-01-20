@@ -10,5 +10,6 @@ namespace HackingJacks.Abstract.Services
     public interface IMedicalTextService
     {
         Task<Result<MedicalAudio>> TranscribeAsync(Guid guid);
+        Task<Result<string>> GetTranscribedTextAsync(Guid guid);
     }
 }

@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText.Services", "HackingJacks.MedicalText.Services\HackingJacks.MedicalText.Services.csproj", "{9098F305-CB1A-4F86-A115-C31C2FF5EA87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalEntities", "HackingJacks.MedicalEntities\HackingJacks.MedicalEntities.csproj", "{555E6510-F74B-45E6-A45B-C4698FC9244E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalEntities.Services", "HackingJacks.MedicalEntities.Services\HackingJacks.MedicalEntities.Services.csproj", "{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,14 @@ Global
 		{9098F305-CB1A-4F86-A115-C31C2FF5EA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9098F305-CB1A-4F86-A115-C31C2FF5EA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9098F305-CB1A-4F86-A115-C31C2FF5EA87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{555E6510-F74B-45E6-A45B-C4698FC9244E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{555E6510-F74B-45E6-A45B-C4698FC9244E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{555E6510-F74B-45E6-A45B-C4698FC9244E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{555E6510-F74B-45E6-A45B-C4698FC9244E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD9B2AD1-0396-4460-AB2F-20F0F7D9557F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

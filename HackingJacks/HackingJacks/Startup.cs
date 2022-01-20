@@ -5,6 +5,8 @@ using HackingJacks.Audio.Domain.Repositories.Abstract;
 using HackingJacks.Audio.Domain.Repositories.Interfaces;
 using HackingJacks.Audio.Services;
 using HackingJacks.Audio.Services.Abstract;
+using HackingJacks.MedicalEntities.Controllers;
+using HackingJacks.MedicalEntities.Services;
 using HackingJacks.MedicalText.Controllers;
 using HackingJacks.MedicalText.Services;
 using HackingJacks.Patient.Controllers;
@@ -41,13 +43,15 @@ namespace HackingJacks
             services.AddControllersWithViews().
                 AddApplicationPart(Assembly.GetAssembly(typeof(AudioController))).
                 AddApplicationPart(Assembly.GetAssembly(typeof(PatientController))).
-                AddApplicationPart(Assembly.GetAssembly(typeof(MedicalTextController)));
+                AddApplicationPart(Assembly.GetAssembly(typeof(MedicalTextController))).
+                AddApplicationPart(Assembly.GetAssembly(typeof(MedicalEntitiesController)));
 
             services.AddScoped<IAudioService, AudioService>();
             services.AddScoped<IAudioRepository, AudioRepository>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IMedicalTextService, MedicalTextService>();
+            services.AddScoped<IMedicalEntityService, MedicalEntityService>();
 
         }
 
