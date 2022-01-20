@@ -17,6 +17,8 @@ namespace HackingJacks.MedicalText.Services
     {
         private readonly string _publicKey = "AKIA43NW6BIWSSVPQTGW";
         private readonly string _privateKey = "HXRmaoJSz1VLwHLgQM/L7XMINo1VkHQCxt4UEgHF";
+
+        private readonly string _inputBucketName = "audiofilesinput";
         private readonly string _outputBucketName = "transcribedaudiofile";
         private readonly RegionEndpoint _regionEndPoint = RegionEndpoint.USEast1;
         private IAudioService _audioService;
@@ -25,6 +27,26 @@ namespace HackingJacks.MedicalText.Services
         {
             _audioService = audioService;
         }
+
+        public async Task<Result<MedicalAudio>> TranscribeAsync(string fileName)
+        {
+            try
+            {
+                var medicalAudio = new MedicalAudio()
+                {
+                    Id = Guid.NewGuid(),
+                    AudioMediaUri = "s3://" + _inputBucketName + "/" + fileName,
+                };
+
+                var result = await TranscribeAsync(medicalAudio);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new Result<MedicalAudio>(ex);
+            }
+        }
+
         /// <summary>
         /// retuns the s3 file to the processed audio file
         /// </summary>
@@ -40,13 +62,26 @@ namespace HackingJacks.MedicalText.Services
                     return new Result<MedicalAudio>(audioResult.Error);
                 }
 
-                var medicalAudio = audioResult.Item;
+                var result = await TranscribeAsync(audioResult.Item);
 
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return new Result<MedicalAudio>(ex);
+            }
+        }
+
+        private async Task<Result<MedicalAudio>> TranscribeAsync(MedicalAudio medicalAudio)
+        {
+            try
+            {
                 var client = new AmazonTranscribeServiceClient(_publicKey, _privateKey, _regionEndPoint);
 
                 var startRequest = new StartMedicalTranscriptionJobRequest()
                 {
-                    MedicalTranscriptionJobName = guid.ToString(),
+                    MedicalTranscriptionJobName = medicalAudio.Id.ToString(),
                     LanguageCode = LanguageCode.EnUS,
                     MediaFormat = MediaFormat.Mp3,
                     Media = new Media()
@@ -54,7 +89,7 @@ namespace HackingJacks.MedicalText.Services
                         MediaFileUri = medicalAudio.AudioMediaUri,
                     },
                     OutputBucketName = _outputBucketName,
-                    OutputKey = guid.ToString(),
+                    OutputKey = medicalAudio.Id.ToString(),
                     Specialty = Specialty.PRIMARYCARE,
                     Type = Amazon.TranscribeService.Type.CONVERSATION
                 };
@@ -67,20 +102,20 @@ namespace HackingJacks.MedicalText.Services
                 {
                     var jobRequest = new GetMedicalTranscriptionJobRequest()
                     {
-                        MedicalTranscriptionJobName = guid.ToString()
+                        MedicalTranscriptionJobName = medicalAudio.Id.ToString()
                     };
 
                     jobResponse = await client.GetMedicalTranscriptionJobAsync(jobRequest);
                 }
-                while (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.COMPLETED ||
-                        jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.FAILED);
+                while (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus == TranscriptionJobStatus.IN_PROGRESS ||
+                        jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus == TranscriptionJobStatus.QUEUED);
 
                 if (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus == TranscriptionJobStatus.FAILED)
                 {
                     return new Result<MedicalAudio>(new Exception(jobResponse.MedicalTranscriptionJob.FailureReason));
                 }
 
-                medicalAudio.TranscriptFileUri = response.MedicalTranscriptionJob.Transcript.TranscriptFileUri;
+                medicalAudio.TranscriptFileUri = jobResponse.MedicalTranscriptionJob.Transcript.TranscriptFileUri;
                 medicalAudio.Status = DTOs.MedicalAudio.MedicalAudioStatuses.TranscriptCreated;
                 medicalAudio.DateUpdated = DateTime.UtcNow;
                 _audioService.Save(medicalAudio);
@@ -114,5 +149,7 @@ namespace HackingJacks.MedicalText.Services
                 return new Result<string>(ex);
             }
         }
+
+ 
     }
 }

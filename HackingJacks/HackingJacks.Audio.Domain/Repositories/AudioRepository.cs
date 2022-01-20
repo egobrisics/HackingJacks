@@ -14,6 +14,7 @@ namespace HackingJacks.Audio.Domain.Repositories.Interfaces
         {
             var medicalAudio = new MedicalAudio()
             {
+                Id = id,
                 AudioMediaUri = "s3://audiofilesinput/Script 1 - Back Pain.mp3",
             };
 
@@ -30,7 +31,7 @@ namespace HackingJacks.Audio.Domain.Repositories.Interfaces
         public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
         {
             //save medicalAudio in dynamno
-            throw new NotImplementedException();
+            return new Result<MedicalAudio>(medicalAudio);
         }
     }
 }

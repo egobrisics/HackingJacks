@@ -23,9 +23,30 @@ namespace HackingJacks.Patient.Controllers
 
         public IActionResult Index()
         {
-            var patient = new PatientModel();
-            patient.Name = "Erik Gobris";
-
+            var patient = new PatientModel()
+            {
+                Demographics = new PatientDemographicsModel()
+                {
+                    Name = new PatientFieldModel()
+                    {
+                        Text = "Erik Gobris",
+                        Score = 99.9,
+                        IsApproved = true,
+                    },
+                    Age = new PatientFieldModel()
+                    {
+                        Text = "32",
+                        Score = 30.1,
+                        IsApproved = false,
+                    },
+                    Occupation = new PatientFieldModel()
+                    {
+                        Text = "Programmer",
+                        Score = 80.5,
+                        IsApproved = false,
+                    },
+                },
+            };
             return View(patient);
         }
 

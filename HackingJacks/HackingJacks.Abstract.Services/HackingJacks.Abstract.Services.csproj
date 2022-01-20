@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.ComprehendMedical" Version="3.7.2.11" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HackingJacks.Abstract.Repositories\HackingJacks.Abstract.Repositories.csproj" />
     <ProjectReference Include="..\HackingJacks.General\HackingJacks.General.csproj" />
   </ItemGroup>

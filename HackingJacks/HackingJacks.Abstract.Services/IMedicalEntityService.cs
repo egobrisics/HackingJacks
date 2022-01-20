@@ -1,4 +1,5 @@
-﻿using HackingJacks.General;
+﻿using Amazon.ComprehendMedical.Model;
+using HackingJacks.General;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace HackingJacks.Abstract.Services
 {
     public interface IMedicalEntityService
     {
-        Task<Result> ProcessTextAsync(Guid id, string text);
+        Task<Result<List<Entity>>> ProcessTextAsync(Guid id, string text);
     }
 }
