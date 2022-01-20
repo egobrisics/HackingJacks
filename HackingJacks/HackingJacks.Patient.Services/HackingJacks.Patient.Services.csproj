@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HackingJacks.Abstract.Repositories\HackingJacks.Abstract.Repositories.csproj" />
+    <ProjectReference Include="..\HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj" />
+  </ItemGroup>
+
+</Project>

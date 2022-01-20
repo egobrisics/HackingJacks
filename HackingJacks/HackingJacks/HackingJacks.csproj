@@ -4,4 +4,23 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HackingJacks.Abstract.Repositories\HackingJacks.Abstract.Repositories.csproj" />
+    <ProjectReference Include="..\HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.Audio.Domain\HackingJacks.Audio.Domain.csproj" />
+    <ProjectReference Include="..\HackingJacks.Audio.Services\HackingJacks.Audio.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.Audio\HackingJacks.Audio.csproj" />
+    <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
+    <ProjectReference Include="..\HackingJacks.General\HackingJacks.General.csproj" />
+    <ProjectReference Include="..\HackingJacks.Models\HackingJacks.Models.csproj" />
+    <ProjectReference Include="..\HackingJacks.Patient.Domain\HackingJacks.Patient.Domain.csproj" />
+    <ProjectReference Include="..\HackingJacks.Patient.Services\HackingJacks.Patient.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.Patient\HackingJacks.Patient.csproj" />
+  </ItemGroup>
+
 </Project>

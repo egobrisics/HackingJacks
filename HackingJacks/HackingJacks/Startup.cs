@@ -1,12 +1,21 @@
+using HackingJacks.Abstract.Repositories;
+using HackingJacks.Abstract.Services;
+using HackingJacks.Audio.Domain.Repositories.Abstract;
+using HackingJacks.Audio.Domain.Repositories.Interfaces;
+using HackingJacks.Audio.Services;
+using HackingJacks.Audio.Services.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace HackingJacks
@@ -23,7 +32,15 @@ namespace HackingJacks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().
+                AddApplicationPart(Assembly.GetAssembly(typeof(Controllers.AudioController))).
+                AddApplicationPart(Assembly.GetAssembly(typeof(Controllers.PatientController)));
+
+            services.AddScoped<IAudioService, AudioService>();
+            services.AddScoped<IAudioRepository, AudioRepository>();
+            services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,9 +59,10 @@ namespace HackingJacks
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
 
+            app.UseRouting();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
