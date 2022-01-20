@@ -1,5 +1,6 @@
 ﻿using HackingJacks.Audio.Domain.Repositories.Abstract;
 using HackingJacks.Audio.Services.Abstract;
+using HackingJacks.DTOs;
 using HackingJacks.General;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,19 @@ namespace HackingJacks.Audio.Services
             _audioRepository = audioRepository;
         }
 
-        public Result<Stream> Get(Guid id)
+        public Result<MedicalAudio> Get(Guid id)
         {
            return _audioRepository.Get(id);
         }
 
-        public Result<Guid> Save(Stream stream)
+        public Result<MedicalAudio> Save(Stream stream)
         {
             return _audioRepository.Save(stream);
+        }
+
+        public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
+        {
+            return _audioRepository.Save(medicalAudio);
         }
     }
 }

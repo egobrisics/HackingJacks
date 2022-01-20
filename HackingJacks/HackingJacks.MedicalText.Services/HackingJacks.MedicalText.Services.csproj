@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.TranscribeService" Version="3.7.9.30" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
+    <ProjectReference Include="..\HackingJacks.General\HackingJacks.General.csproj" />
+  </ItemGroup>
+
+</Project>
