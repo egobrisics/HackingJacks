@@ -14,7 +14,7 @@ namespace HackingJacks.MedicalText.Services
     {
         private readonly string _publicKey = "AKIA43NW6BIWSSVPQTGW";
         private readonly string _privateKey = "HXRmaoJSz1VLwHLgQM/L7XMINo1VkHQCxt4UEgHF";
-        private readonly string _outputBucketName = "s3://transcribedaudiofile";
+        private readonly string _outputBucketName = "transcribedaudiofile";
         private readonly RegionEndpoint _regionEndPoint = RegionEndpoint.USEast1;
         private IAudioService _audioService;
 
@@ -45,14 +45,15 @@ namespace HackingJacks.MedicalText.Services
                 {
                     MedicalTranscriptionJobName = guid.ToString(),
                     LanguageCode = LanguageCode.EnUS,
-                    MediaFormat = MediaFormat.Mp4,
-                    MediaSampleRateHertz = 16_000,
+                    MediaFormat = MediaFormat.Mp3,
                     Media = new Media()
                     {
                         MediaFileUri = medicalAudio.AudioMediaUri,
                     },
                     OutputBucketName = _outputBucketName,
-                    OutputKey = guid.ToString()
+                    OutputKey = guid.ToString() + ".txt",
+                    Specialty = Specialty.PRIMARYCARE,
+                    Type = Amazon.TranscribeService.Type.CONVERSATION
                 };
 
                 var response = await client.StartMedicalTranscriptionJobAsync(startRequest);
@@ -73,6 +74,10 @@ namespace HackingJacks.MedicalText.Services
                 while (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.COMPLETED ||
                         jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.FAILED);
 
+                if (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus == TranscriptionJobStatus.FAILED)
+                {
+                    return new Result<MedicalAudio>(new Exception(jobResponse.MedicalTranscriptionJob.FailureReason));
+                }
 
                 medicalAudio.TranscriptFileUri = response.MedicalTranscriptionJob.Transcript.TranscriptFileUri;
                 medicalAudio.Status = DTOs.MedicalAudio.MedicalAudioStatuses.TranscriptCreated;

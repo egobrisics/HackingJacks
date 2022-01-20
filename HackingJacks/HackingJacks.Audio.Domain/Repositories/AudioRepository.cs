@@ -14,7 +14,7 @@ namespace HackingJacks.Audio.Domain.Repositories.Interfaces
         {
             var medicalAudio = new MedicalAudio()
             {
-                AudioMediaUri = "s3://audiofilesinput/Script+1+-+Back+Pain.mp3",
+                AudioMediaUri = "s3://audiofilesinput/Script 1 - Back Pain.mp3",
             };
 
             //get item from dynamno db
