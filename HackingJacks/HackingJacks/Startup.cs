@@ -1,9 +1,15 @@
 using HackingJacks.Abstract.Repositories;
 using HackingJacks.Abstract.Services;
+using HackingJacks.Audio.Controllers;
 using HackingJacks.Audio.Domain.Repositories.Abstract;
 using HackingJacks.Audio.Domain.Repositories.Interfaces;
 using HackingJacks.Audio.Services;
 using HackingJacks.Audio.Services.Abstract;
+using HackingJacks.MedicalText.Controllers;
+using HackingJacks.MedicalText.Services;
+using HackingJacks.Patient.Controllers;
+using HackingJacks.Patients.Domain.Repositories;
+using HackingJacks.Patients.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,13 +39,15 @@ namespace HackingJacks
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().
-                AddApplicationPart(Assembly.GetAssembly(typeof(Controllers.AudioController))).
-                AddApplicationPart(Assembly.GetAssembly(typeof(Controllers.PatientController)));
+                AddApplicationPart(Assembly.GetAssembly(typeof(AudioController))).
+                AddApplicationPart(Assembly.GetAssembly(typeof(PatientController))).
+                AddApplicationPart(Assembly.GetAssembly(typeof(MedicalTextController)));
 
             services.AddScoped<IAudioService, AudioService>();
             services.AddScoped<IAudioRepository, AudioRepository>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IMedicalTextService, MedicalTextService>();
 
         }
 

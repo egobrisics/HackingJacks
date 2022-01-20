@@ -11,7 +11,7 @@ namespace HackingJacks.DTOs
             Created = 0,
             TranscriptCreated = 1,
             MedicalEntitiesProcessed = 2,
-            Completed = 3
+            PatientCreated = 3
         }
 
         public Guid Id { get; set; }

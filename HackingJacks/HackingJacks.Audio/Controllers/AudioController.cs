@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HackingJacks.Controllers
+namespace HackingJacks.Audio.Controllers
 {
     [Route("audio")]
     public class AudioController : Controller

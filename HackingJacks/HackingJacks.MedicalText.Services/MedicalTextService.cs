@@ -1,17 +1,20 @@
 ﻿using Amazon;
 using Amazon.TranscribeService;
 using Amazon.TranscribeService.Model;
+using HackingJacks.Abstract.Services;
 using HackingJacks.Audio.Services.Abstract;
+using HackingJacks.DTOs;
 using HackingJacks.General;
 using System;
 using System.Threading.Tasks;
 
 namespace HackingJacks.MedicalText.Services
 {
-    public class MedicalTextService
+    public class MedicalTextService : IMedicalTextService
     {
-        private readonly string _publicKey = "";
-        private readonly string _privateKey = "";
+        private readonly string _publicKey = "AKIA43NW6BIWSSVPQTGW";
+        private readonly string _privateKey = "HXRmaoJSz1VLwHLgQM/L7XMINo1VkHQCxt4UEgHF";
+        private readonly string _outputBucketName = "s3://transcribedaudiofile";
         private readonly RegionEndpoint _regionEndPoint = RegionEndpoint.USEast1;
         private IAudioService _audioService;
 
@@ -24,21 +27,21 @@ namespace HackingJacks.MedicalText.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public async Task<Result<string>> TranscribeAsync(Guid guid)
+        public async Task<Result<MedicalAudio>> TranscribeAsync(Guid guid)
         {
             try
             {
                 var audioResult = _audioService.Get(guid);
-                if (audioResult.Success)
+                if (!audioResult.Success)
                 {
-                    return new Result<string>(audioResult.Error);
+                    return new Result<MedicalAudio>(audioResult.Error);
                 }
 
                 var medicalAudio = audioResult.Item;
 
                 var client = new AmazonTranscribeServiceClient(_publicKey, _privateKey, _regionEndPoint);
 
-                var request = new StartMedicalTranscriptionJobRequest()
+                var startRequest = new StartMedicalTranscriptionJobRequest()
                 {
                     MedicalTranscriptionJobName = guid.ToString(),
                     LanguageCode = LanguageCode.EnUS,
@@ -46,24 +49,41 @@ namespace HackingJacks.MedicalText.Services
                     MediaSampleRateHertz = 16_000,
                     Media = new Media()
                     {
-                        MediaFileUri = medicalAudio.AudioMediaUri
-                    }
+                        MediaFileUri = medicalAudio.AudioMediaUri,
+                    },
+                    OutputBucketName = _outputBucketName,
+                    OutputKey = guid.ToString()
                 };
 
-                var response = await client.StartMedicalTranscriptionJobAsync(request);
+                var response = await client.StartMedicalTranscriptionJobAsync(startRequest);
 
                 //wait for job to be completed
+                GetMedicalTranscriptionJobResponse jobResponse = null;
+                do
+                {
+                    var jobRequest = new GetMedicalTranscriptionJobRequest()
+                    {
+                        MedicalTranscriptionJobName = guid.ToString()
+                    };
+
+                    // code block to be executed
+                    jobResponse = await client.GetMedicalTranscriptionJobAsync(jobRequest);
+               
+                }
+                while (jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.COMPLETED ||
+                        jobResponse.MedicalTranscriptionJob.TranscriptionJobStatus != TranscriptionJobStatus.FAILED);
+
 
                 medicalAudio.TranscriptFileUri = response.MedicalTranscriptionJob.Transcript.TranscriptFileUri;
                 medicalAudio.Status = DTOs.MedicalAudio.MedicalAudioStatuses.TranscriptCreated;
                 medicalAudio.DateUpdated = DateTime.UtcNow;
                 _audioService.Save(medicalAudio);
 
-                return new Result<string>(medicalAudio.TranscriptFileUri);
+                return new Result<MedicalAudio>(medicalAudio);
             }
             catch (Exception ex)
             {
-                return new Result<string>(ex);
+                return new Result<MedicalAudio>(ex);
             }
         }
     }

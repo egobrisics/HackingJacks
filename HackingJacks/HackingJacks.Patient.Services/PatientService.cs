@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace HackingJacks.Audio.Services
+namespace HackingJacks.Patients.Services
 {
     public class PatientService : IPatientService
     {

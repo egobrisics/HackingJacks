@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace HackingJacks.Audio.Domain.Repositories.Interfaces
+namespace HackingJacks.Patients.Domain.Repositories
 {
     public class PatientRepository : IPatientRepository
     {

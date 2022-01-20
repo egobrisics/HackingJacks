@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HackingJacks.MedicalText.Domain.Repositories
 {
-    public class MedicalTextRepository
+    public class MedicalTextRepository : IMedicalTextRepository
     {
     }
 }

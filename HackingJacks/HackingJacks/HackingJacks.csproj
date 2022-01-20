@@ -17,10 +17,12 @@
     <ProjectReference Include="..\HackingJacks.Audio\HackingJacks.Audio.csproj" />
     <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
     <ProjectReference Include="..\HackingJacks.General\HackingJacks.General.csproj" />
+    <ProjectReference Include="..\HackingJacks.MedicalText.Services\HackingJacks.MedicalText.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.MedicalText\HackingJacks.MedicalText.csproj" />
     <ProjectReference Include="..\HackingJacks.Models\HackingJacks.Models.csproj" />
-    <ProjectReference Include="..\HackingJacks.Patient.Domain\HackingJacks.Patient.Domain.csproj" />
-    <ProjectReference Include="..\HackingJacks.Patient.Services\HackingJacks.Patient.Services.csproj" />
-    <ProjectReference Include="..\HackingJacks.Patient\HackingJacks.Patient.csproj" />
+    <ProjectReference Include="..\HackingJacks.Patient.Domain\HackingJacks.Patients.Domain.csproj" />
+    <ProjectReference Include="..\HackingJacks.Patient.Services\HackingJacks.Patients.Services.csproj" />
+    <ProjectReference Include="..\HackingJacks.Patient\HackingJacks.Patients.csproj" />
   </ItemGroup>
 
 </Project>

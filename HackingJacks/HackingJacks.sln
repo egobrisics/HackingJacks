@@ -21,15 +21,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Abstract.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Abstract.Repositories", "HackingJacks.Abstract.Repositories\HackingJacks.Abstract.Repositories.csproj", "{CA97544C-A609-4A69-BD73-F8B0988F8C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patient", "HackingJacks.Patient\HackingJacks.Patient.csproj", "{E8A3307A-28CA-4A6E-BEC6-A9184173D54B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patients", "HackingJacks.Patient\HackingJacks.Patients.csproj", "{E8A3307A-28CA-4A6E-BEC6-A9184173D54B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patient.Domain", "HackingJacks.Patient.Domain\HackingJacks.Patient.Domain.csproj", "{99563231-572B-4DB8-8557-849ED63B4D7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patients.Domain", "HackingJacks.Patient.Domain\HackingJacks.Patients.Domain.csproj", "{99563231-572B-4DB8-8557-849ED63B4D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patient.Services", "HackingJacks.Patient.Services\HackingJacks.Patient.Services.csproj", "{02A62E91-CE40-4DAB-B676-14DC42C41413}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.Patients.Services", "HackingJacks.Patient.Services\HackingJacks.Patients.Services.csproj", "{02A62E91-CE40-4DAB-B676-14DC42C41413}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText", "HackingJacks.MedicalText\HackingJacks.MedicalText.csproj", "{F72DBCA7-81BC-4034-A982-8379F4A56486}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText.Domain", "HackingJacks.MedicalText.Domain\HackingJacks.MedicalText.Domain.csproj", "{59ADC000-491F-4346-873B-1667FE17BA96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingJacks.MedicalText.Services", "HackingJacks.MedicalText.Services\HackingJacks.MedicalText.Services.csproj", "{9098F305-CB1A-4F86-A115-C31C2FF5EA87}"
 EndProject
@@ -91,10 +89,6 @@ Global
 		{F72DBCA7-81BC-4034-A982-8379F4A56486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F72DBCA7-81BC-4034-A982-8379F4A56486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F72DBCA7-81BC-4034-A982-8379F4A56486}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59ADC000-491F-4346-873B-1667FE17BA96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59ADC000-491F-4346-873B-1667FE17BA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59ADC000-491F-4346-873B-1667FE17BA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59ADC000-491F-4346-873B-1667FE17BA96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9098F305-CB1A-4F86-A115-C31C2FF5EA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9098F305-CB1A-4F86-A115-C31C2FF5EA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9098F305-CB1A-4F86-A115-C31C2FF5EA87}.Release|Any CPU.ActiveCfg = Release|Any CPU

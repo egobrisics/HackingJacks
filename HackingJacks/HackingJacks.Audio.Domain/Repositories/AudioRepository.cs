@@ -12,8 +12,13 @@ namespace HackingJacks.Audio.Domain.Repositories.Interfaces
     {
         public Result<MedicalAudio> Get(Guid id)
         {
+            var medicalAudio = new MedicalAudio()
+            {
+                AudioMediaUri = "s3://audiofilesinput/Script+1+-+Back+Pain.mp3",
+            };
+
             //get item from dynamno db
-            throw new NotImplementedException();
+            return new Result<MedicalAudio>(medicalAudio);
         }
 
         public Result<MedicalAudio> Save(Stream stream)

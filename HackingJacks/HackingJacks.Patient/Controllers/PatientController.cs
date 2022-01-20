@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HackingJacks.Controllers
+namespace HackingJacks.Patient.Controllers
 {
     [Route("patient")]
     public class PatientController : Controller
