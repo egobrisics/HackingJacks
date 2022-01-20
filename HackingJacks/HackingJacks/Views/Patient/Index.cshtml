@@ -11,22 +11,14 @@
     <div>
         <h3>Demographics</h3>
         <table class="table-striped">
-            <!--Header will likely be hidden in the end. Included for clarity.-->
-            <thead>
-                <tr>
-                    <th>Data Label</th>
-                    <th>Data Value</th>
-                    <th>Confidence Score</th>
-                    <th>Approved</th>
-                </tr>
-            </thead>
+
 
             <tbody>
                 <tr>
                     <td>Name</td>
                     <td>@Html.TextAreaFor(model => model.Demographics.Name.Text, textAreaRows, textAreaColumns, null)</td>
                     <td>@Model.Demographics.Name?.Score</td>
-                    <td>@Html.CheckBoxFor(model => model.Demographics.Name.IsApproved)</td>
+                    <td>Approve @Html.CheckBoxFor(model => model.Demographics.Name.IsApproved)</td>
                 </tr>
                 @if (Model.Demographics.Age?.Text != null)
                 {
@@ -34,7 +26,7 @@
                         <td>Age</td>
                         <td>@Html.TextAreaFor(model => model.Demographics.Age.Text, textAreaRows, textAreaColumns, null)</td>
                         <td>@Model.Demographics.Age.Score</td>
-                        <td>@Html.CheckBoxFor(model => model.Demographics.Age.IsApproved)</td>
+                        <td>Approve @Html.CheckBoxFor(model => model.Demographics.Age.IsApproved)</td>
                     </tr>
                 }
                 @if (Model.Demographics.Occupation?.Text != null)
@@ -43,10 +35,60 @@
                         <td>Occupation</td>
                         <td>@Html.TextAreaFor(model => model.Demographics.Occupation.Text, textAreaRows, textAreaColumns, null)</td>
                         <td>@Model.Demographics.Occupation.Score</td>
-                        <td>@Html.CheckBoxFor(model => model.Demographics.Occupation.IsApproved)</td>
+                        <td>Approve @Html.CheckBoxFor(model => model.Demographics.Occupation.IsApproved)</td>
                     </tr>
                 }
             </tbody>
         </table>
+    </div>
+    <div>
+        <h3>Social History</h3>
+        @if (Model.SocialHistory != null)
+        {
+            <table class="table-striped">
+                <tbody>
+                    @if (Model.SocialHistory.MaritalStatus?.Text != null)
+                    {
+                        <tr>
+                            <td>Marital Status</td>
+                            <td>@Html.TextAreaFor(model => model.SocialHistory.MaritalStatus.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td>@Model.SocialHistory.MaritalStatus?.Score</td>
+                            <td>@Html.CheckBoxFor(model => model.SocialHistory.MaritalStatus.IsApproved)</td>
+                        </tr>
+                    }
+                    @if (Model.SocialHistory.AlcoholUse?.Text != null)
+                    {
+                        <tr>
+                            <td>Alcohol Use</td>
+                            <td>@Html.TextAreaFor(model => model.SocialHistory.AlcoholUse.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td>@Model.SocialHistory.AlcoholUse?.Score</td>
+                            <td>@Html.CheckBoxFor(model => model.SocialHistory.AlcoholUse.IsApproved)</td>
+                        </tr>
+                    }
+                    @if (Model.SocialHistory.TobaccoUse?.Text != null)
+                    {
+                        <tr>
+                            <td>Tobacco Use</td>
+                            <td>@Html.TextAreaFor(model => model.SocialHistory.TobaccoUse.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td>@Model.SocialHistory.TobaccoUse?.Score</td>
+                            <td>@Html.CheckBoxFor(model => model.SocialHistory.TobaccoUse.IsApproved)</td>
+                        </tr>
+                    }
+                    @if (Model.SocialHistory.NarcoticsUse?.Text != null)
+                    {
+                        <tr>
+                            <td>Alcohol Use</td>
+                            <td>@Html.TextAreaFor(model => model.SocialHistory.NarcoticsUse.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td>@Model.SocialHistory.NarcoticsUse?.Score</td>
+                            <td>@Html.CheckBoxFor(model => model.SocialHistory.NarcoticsUse.IsApproved)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No social history information was found</p>
+        }
     </div>
 </div>
