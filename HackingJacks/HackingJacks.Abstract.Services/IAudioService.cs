@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HackingJacks.Audio.Services.Abstract
 {
     public interface IAudioService
     {
         Result<MedicalAudio> Get(Guid id);
-        Result<MedicalAudio> SaveAsync(Stream stream);
+        Task<Result<MedicalAudio>> SaveAsync(Stream stream);
         Result<MedicalAudio> Save(MedicalAudio medicalAudio);
     }
 }

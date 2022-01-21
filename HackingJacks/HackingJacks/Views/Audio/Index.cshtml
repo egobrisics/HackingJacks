@@ -1,16 +1,14 @@
-﻿@{
-    ViewData["Title"] = "Audio";
-}
+﻿<div class = "container">
+    @using (Html.BeginForm("Index", "Audio", FormMethod.Post, new { enctype = "multipart/form-data"}))
+    {
+        <div class = "row">
+            <div class = "form-group col-md-6">
+                <input type="file" class = "form-control" name = "myFile"/>
+            </div>
+            <div class = "form-group col-md-6">
+                <button type="submit" name ="filesubmit" value="Upload">Upload</button>
+            </div>
+        </div>        
+    }
+</div>
 
-<form>    
-    <p>Select the audio file to upload</p>
-    <input type = "file" id ="fileSelect" accept="audio/*"/>
-    <button type="submit" id ="btnSubmit" onclick="Upload()">Upload</button>
-
-    <script>
-      function myFunction() {
-        //Write your function here to upload it to Amazon S3
-        
-      }
-    </script>
-</form>
