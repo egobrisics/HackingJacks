@@ -110,9 +110,82 @@ namespace HackingJacks.MedicalEntities.Services
                 };
             }
 
+            var diagnoses = new List<PatientDiagnosisModel>();
+            var diagnosesEntities = entities.Where(x => x.Type == EntitySubType.DX_NAME).ToList();
+
+            foreach (var diagnosisEntity in diagnosesEntities)
+            {
+                diagnoses.Add(new PatientDiagnosisModel()
+                {
+                    Name = new PatientFieldModel()
+                    {
+                        Text = diagnosisEntity.Text,
+                        Score = diagnosisEntity.Score
+                    }
+                });
+            }
+
+            diagnoses = diagnoses.GroupBy(x => x.Name.Text).Select(x => x.FirstOrDefault()).ToList();
+
+            var procedures = new List<PatientProcedureModel>();
+            var procedureEntities = entities.Where(x => x.Type == EntitySubType.PROCEDURE_NAME || x.Type == EntitySubType.TREATMENT_NAME).ToList();
+
+            foreach (var procedureEntity in procedureEntities)
+            {
+                procedures.Add(new PatientProcedureModel()
+                {
+                    Description = new PatientFieldModel()
+                    {
+                        Text = procedureEntity.Text,
+                        Score = procedureEntity.Score
+                    }
+                });
+            }
+
+            var medications = new List<PatientMedicationModel>();
+            var medicationEntities = entities.Where(x => x.Category == EntityType.MEDICATION).ToList();
+
+            foreach (var medicationEntity in medicationEntities)
+            {
+                var medicationModel = new PatientMedicationModel()
+                {
+                    Name = new PatientFieldModel()
+                    {
+                        Text = medicationEntity.Text,
+                        Score = medicationEntity.Score
+                    }
+                };
+
+                var dosageAttribute = medicationEntity.Attributes.FirstOrDefault(x => x.RelationshipType == RelationshipType.DOSAGE);
+                if (dosageAttribute != null)
+                {
+                    medicationModel.Dosage = new PatientFieldModel()
+                    {
+                        Text = dosageAttribute.Text,
+                        Score = dosageAttribute.Score
+                    };
+                }
+
+                var frequencyAttribute = medicationEntity.Attributes.FirstOrDefault(x => x.RelationshipType == RelationshipType.FREQUENCY);
+                if (frequencyAttribute != null)
+                {
+                    medicationModel.Frequency = new PatientFieldModel()
+                    {
+                        Text = frequencyAttribute.Text,
+                        Score = frequencyAttribute.Score
+                    };
+                }
+
+
+                medications.Add(medicationModel);
+            }
+
             return new PatientModel() 
             { 
                 Demographics = demographicsModel,
+                Diagnoses = diagnoses.ToArray(),
+                Procedures = procedures.ToArray(),
+                Medications = medications.ToArray()
             };
 
         }
