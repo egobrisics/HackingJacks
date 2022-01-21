@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HackingJacks.Audio.Domain.Repositories.Abstract
 {
@@ -11,7 +12,7 @@ namespace HackingJacks.Audio.Domain.Repositories.Abstract
     {
         Result<MedicalAudio> Get(Guid id);
 
-        Result<MedicalAudio> SaveAsync(Stream stream);
+        Task<Result<MedicalAudio>> SaveAsync(MedicalAudio medicalAudio);
         Result<MedicalAudio> Save(MedicalAudio medicalAudio);
     }
 }

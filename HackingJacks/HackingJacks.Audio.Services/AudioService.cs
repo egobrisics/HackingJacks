@@ -6,10 +6,7 @@ using HackingJacks.Audio.Services.Abstract;
 using HackingJacks.DTOs;
 using HackingJacks.General;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HackingJacks.Audio.Services
@@ -29,25 +26,30 @@ namespace HackingJacks.Audio.Services
 
         public Result<MedicalAudio> Get(Guid id)
         {
-           return _audioRepository.Get(id);
+            return _audioRepository.Get(id);
         }
 
         public async Task<Result<MedicalAudio>> SaveAsync(Stream stream)
         {
-            //save stream to s3 and then save new medical audio in dynamno
-            string fileName = sendAudioFileToS3(_BucketName, stream);
-            var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);            
-            var response = await client.GetObjectAsync(_BucketName, fileName);
-            string audioUrl = string.Empty;
-            using (var streamReader = new StreamReader(response.ResponseStream))
+            try
             {
-                var data = streamReader.ReadToEnd();
-                var medicalAudio = Newtonsoft.Json.JsonConvert.DeserializeObject<DTOs.MedicalAudio>(data);
+                //save stream to s3 and then save new medical audio in dynamno
+                string fileName = sendAudioFileToS3(_BucketName, stream);
+                var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);
+                var response = await client.GetObjectAsync(_BucketName, fileName);
+                using (var streamReader = new StreamReader(response.ResponseStream))
+                {
+                    var data = streamReader.ReadToEnd();
+                    var medicalAudio = Newtonsoft.Json.JsonConvert.DeserializeObject<MedicalAudio>(data);
 
-                audioUrl = medicalAudio.AudioMediaUri;
+                    return await _audioRepository.SaveAsync(medicalAudio);
+                }
             }
-            SendMedicalReordToDatabase(audioUrl);
-            return _audioRepository.SaveAsync(stream);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return new Result<MedicalAudio>();
+            }
         }
 
         public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
@@ -56,7 +58,7 @@ namespace HackingJacks.Audio.Services
         }
 
         public string sendAudioFileToS3(string bucketName, Stream stream)
-        {            
+        {
             IAmazonS3 client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);
             TransferUtility utility = new TransferUtility(client);
             TransferUtilityUploadRequest request = new TransferUtilityUploadRequest();
@@ -64,34 +66,11 @@ namespace HackingJacks.Audio.Services
             request.BucketName = bucketName;
             string fileNameInS3 = "File" + DateTime.Now.Millisecond + "";
 
-            request.Key = fileNameInS3;  
+            request.Key = fileNameInS3;
             request.InputStream = stream;
-            utility.Upload(request); 
+            utility.Upload(request);
 
             return fileNameInS3;
-        }
-
-        public void SendMedicalReordToDatabase(string audioUrl)
-        {
-
-            var medicalAudio = new MedicalAudio
-            {
-                Id = new Guid(),
-                AudioMediaUri = audioUrl,
-                DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now,
-                Status = MedicalAudio.MedicalAudioStatuses.Created,
-                PatientId = new Guid(),
-                MedicalEntitiesId = new Guid(),
-                TranscriptFileUri = ""
-            };
-
-            //Save this record to DynamoDB 
-        }
-
-        Result<MedicalAudio> IAudioService.SaveAsync(Stream stream)
-        {
-            throw new NotImplementedException();
         }
     }
 }

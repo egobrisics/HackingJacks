@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.2.12" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
     <ProjectReference Include="..\HackingJacks.General\HackingJacks.General.csproj" />
   </ItemGroup>

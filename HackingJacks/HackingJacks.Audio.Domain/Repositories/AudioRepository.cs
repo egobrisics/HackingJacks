@@ -1,10 +1,15 @@
-﻿using HackingJacks.Audio.Domain.Repositories.Abstract;
+﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
+using HackingJacks.Audio.Domain.Repositories.Abstract;
 using HackingJacks.DTOs;
 using HackingJacks.General;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace HackingJacks.Audio.Domain.Repositories.Interfaces
 {
@@ -22,16 +27,37 @@ namespace HackingJacks.Audio.Domain.Repositories.Interfaces
             return new Result<MedicalAudio>(medicalAudio);
         }
 
-        public Result<MedicalAudio> SaveAsync(Stream stream)
+        public async Task<Result<MedicalAudio>> SaveAsync(MedicalAudio medicalAudio)
         {
-            //save stream to s3 and then save new medical audio in dynamno
-            throw new NotImplementedException();
-        }
+            IAmazonDynamoDB client = HackingJacks.Abstract.Repositories.AmazonDbUtilityMethods.CreateAmazonDynamoDB();
+
+            Document document = serialize(medicalAudio);
+
+            await client.PutItemAsync(
+                "MedicalAudioFile",
+                document.ToAttributeMap(),
+                CancellationToken.None).ConfigureAwait(false);
+
+            return new Result<MedicalAudio>(medicalAudio);
+        }        
 
         public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
         {
             //save medicalAudio in dynamno
             return new Result<MedicalAudio>(medicalAudio);
+        }
+
+        private Document serialize(MedicalAudio medicalAudio)
+        {
+            return Document.FromJson(
+                JsonSerializer.Serialize(
+                    medicalAudio,
+                    new JsonSerializerOptions
+                    {
+                        AllowTrailingCommas = false,
+                        IgnoreNullValues = true,
+                        IgnoreReadOnlyProperties = true
+                    }));
         }
     }
 }
