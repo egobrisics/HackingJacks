@@ -35,18 +35,13 @@ namespace HackingJacks.Audio.Services
             string fileName = sendAudioFileToS3(_BucketName, stream);
             var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);
             var response = await client.GetObjectAsync(_BucketName, fileName);
-            string audioUrl = string.Empty;
             using (var streamReader = new StreamReader(response.ResponseStream))
             {
                 var data = streamReader.ReadToEnd();
                 var medicalAudio = Newtonsoft.Json.JsonConvert.DeserializeObject<MedicalAudio>(data);
-                if(medicalAudio != null)
-                {
-                    audioUrl = medicalAudio.AudioMediaUri;
-                }                
-            }
-            SendMedicalReordToDatabase(audioUrl);
-            return _audioRepository.SaveAsync(stream);
+                              
+                return await _audioRepository.SaveAsync(medicalAudio);
+            }            
         }
 
         public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
@@ -68,24 +63,6 @@ namespace HackingJacks.Audio.Services
             utility.Upload(request);
 
             return fileNameInS3;
-        }
-
-        public void SendMedicalReordToDatabase(string audioUrl)
-        {
-
-            var medicalAudio = new MedicalAudio
-            {
-                Id = new Guid(),
-                AudioMediaUri = audioUrl,
-                DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now,
-                Status = MedicalAudio.MedicalAudioStatuses.Created,
-                PatientId = new Guid(),
-                MedicalEntitiesId = new Guid(),
-                TranscriptFileUri = ""
-            };
-
-            //Save this record to DynamoDB 
         }
     }
 }
