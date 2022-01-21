@@ -5,8 +5,10 @@ using AutoMapper;
 using HackingJacks.Abstract.Services;
 using HackingJacks.DTOs;
 using HackingJacks.General;
+using HackingJacks.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -49,5 +51,71 @@ namespace HackingJacks.MedicalEntities.Services
                 return new Result<List<Entity>>(ex);
             }
         }
+
+        public PatientModel MapPatientList(List<Entity> entities)
+        {
+            var demographicsModel = new PatientDemographicsModel();
+
+            var ageEntity = entities.FirstOrDefault(x => x.Type == EntitySubType.AGE);
+            if (ageEntity != null)
+            {
+                demographicsModel.Age = new PatientFieldModel()
+                {
+                    Text = ageEntity.Text,
+                    Score = ageEntity.Score
+                };
+            }
+            else
+            {
+                demographicsModel.Age = new PatientFieldModel()
+                {
+                    Text =  "",
+                    Score = ageEntity.Score
+                };
+            }
+
+            var nameEntity = entities.FirstOrDefault(x => x.Type == EntitySubType.NAME);
+            if (nameEntity != null)
+            {
+                demographicsModel.Name = new PatientFieldModel()
+                {
+                    Text = nameEntity.Text,
+                    Score = nameEntity.Score
+                };
+            }
+            else
+            {
+                demographicsModel.Name = new PatientFieldModel()
+                {
+                    Text = "",
+                    Score = 0
+                };
+            }
+
+            var occupationEntity = entities.FirstOrDefault(x => x.Type == EntitySubType.PROFESSION);
+            if (occupationEntity != null)
+            {
+                demographicsModel.Occupation = new PatientFieldModel()
+                {
+                    Text = occupationEntity.Text,
+                    Score = occupationEntity.Score
+                };
+            }
+            else
+            {
+                demographicsModel.Occupation = new PatientFieldModel()
+                {
+                    Text = "",
+                    Score = 0
+                };
+            }
+
+            return new PatientModel() 
+            { 
+                Demographics = demographicsModel,
+            };
+
+        }
+
     }
 }

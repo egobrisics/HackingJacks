@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HackingJacks.Abstract.Services\HackingJacks.Abstract.Services.csproj" />
     <ProjectReference Include="..\HackingJacks.DTOs\HackingJacks.DTOs.csproj" />
+    <ProjectReference Include="..\HackingJacks.Models\HackingJacks.Models.csproj" />
   </ItemGroup>
 
 </Project>
