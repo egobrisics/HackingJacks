@@ -2,6 +2,6 @@
 {
     public class PatientProcedureModel
     {
-        public PatientFieldModel Name { get; set; }
+        public PatientFieldModel Description { get; set; }
     }
 }
