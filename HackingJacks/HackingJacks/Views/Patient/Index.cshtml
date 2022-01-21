@@ -43,9 +43,9 @@
     </div>
 
     <div>
-        <h3>Diagnoses</h3>
-        @if (Model.Diagnoses != null)
+        @if (Model.Diagnoses?.Length > 0)
         {
+            <h3>Diagnoses</h3>
             @foreach (var dx in Model.Diagnoses)
             {
                 <table class="table-striped align-self-stretch">
@@ -53,25 +53,26 @@
                         <tr>
                             <td class="w-25 label-field">Description</td>
                             <td class="w-50 main-field">@Html.TextAreaFor(model => dx.Name.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td  class="confidence">@dx.Name.Score.ToString("#.##")</td>
+                            <td class="confidence">@dx.Name.Score.ToString("#.##")</td>
                             <td class="approve">Approve @Html.CheckBoxFor(m => dx.Name.IsApproved)</td>
                         </tr>
                     </tbody>
                 </table>
             }
         }
-        else
+        @*else
         {
             <p>No diagnosis information was found</p>
-        }
+        }*@
     </div>
 
     <div>
-        <h3>Procedures</h3>
-        @if (Model.Procedures != null)
+        @if (Model.Procedures?.Length > 0)
         {
+            <h3>Procedures</h3>
             @foreach (var procedure in Model.Procedures)
             {
+                <h5>@procedure.Description.Text</h5>
                 <table class="table-striped align-self-stretch">
                     <tbody>
                         <tr>
@@ -84,18 +85,18 @@
                 </table>
             }
         }
-        else
+        @*else
         {
             <p>No procedure information was found</p>
-        }
+        }*@
     </div>
 
 
 
     <div>
-        <h3>Medical Conditions</h3>
-        @if (Model.ExistingConditions != null)
+        @if (Model.ExistingConditions?.Length > 0)
         {
+            <h3>Medical Conditions</h3>
             @foreach (var condition in Model.ExistingConditions)
             {
                 <table class="table-striped align-self-stretch">
@@ -126,17 +127,17 @@
                 </table>
             }
         }
-        else
+        @*else
         {
             <p>No medical condition information was found</p>
-        }
+        }*@
     </div>
 
 
     <div>
-        <h3>Medications</h3>
-        @if (Model.Medications != null)
+        @if (Model.Medications?.Length > 0)
         {
+            <h3>Medications</h3>
             @foreach (var med in Model.Medications)
             {
                 <h5>@med.Name.Text</h5>
@@ -188,16 +189,16 @@
                 </table>
             }
         }
-        else
+        @*else
         {
             <p>No medication information was found</p>
-        }
+        }*@
     </div>
 
     <div>
-        <h3>Allergies</h3>
-        @if (Model.Allergies != null)
+        @if (Model.Allergies?.Length > 0)
         {
+            <h3>Allergies</h3>
             @foreach (var allergy in Model.Allergies)
             {
                 <table class="table-striped align-self-stretch">
@@ -212,16 +213,16 @@
                 </table>
             }
         }
-        else
+        @*else
         {
             <p>No allergy information was found</p>
-        }
+        }*@
     </div>
 
     <div>
-        <h3>Social History</h3>
         @if (Model.SocialHistory != null)
         {
+            <h3>Social History</h3>
             <table class="table-striped align-self-stretch">
                 <tbody>
                     @if (Model.SocialHistory.MaritalStatus?.Text != null)
@@ -263,9 +264,9 @@
                 </tbody>
             </table>
         }
-        else
+        @*else
         {
             <p>No social history information was found</p>
-        }
+        }*@
     </div>
 </div>
