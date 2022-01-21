@@ -5,65 +5,41 @@
     var textAreaColumns = 64;
     var textAreaRows = 1;
 }
-
+<head>
+    <link rel="stylesheet" href="~/css/patient.css" type="text/css" />
+</head>
 <div class="text-center">
     <h1 class="display-4">Patient View for @Model.Demographics.Name.Text</h1>
     <div>
         <h3>Demographics</h3>
-        <table class="table-striped">
-
-
+        <table class="table-striped align-self-stretch">
             <tbody>
                 <tr>
-                    <td>Name</td>
-                    <td>@Html.TextAreaFor(model => model.Demographics.Name.Text, textAreaRows, textAreaColumns, null)</td>
-                    <td>@Model.Demographics.Name?.Score</td>
-                    <td>Approve @Html.CheckBoxFor(model => model.Demographics.Name.IsApproved)</td>
+                    <td class="w-25 label-field">Name</td>
+                    <td class="w-50 main-field">@Html.TextAreaFor(model => model.Demographics.Name.Text, textAreaRows, textAreaColumns, null)</td>
+                    <td class="confidence">@Model.Demographics.Name?.Score.ToString("#.##")</td>
+                    <td class="approve">Approve @Html.CheckBoxFor(model => model.Demographics.Name.IsApproved)</td>
                 </tr>
                 @if (Model.Demographics.Age?.Text != null)
                 {
                     <tr>
-                        <td>Age</td>
-                        <td>@Html.TextAreaFor(model => model.Demographics.Age.Text, textAreaRows, textAreaColumns, null)</td>
-                        <td>@Model.Demographics.Age.Score</td>
-                        <td>Approve @Html.CheckBoxFor(model => model.Demographics.Age.IsApproved)</td>
+                        <td class="w-25 label-field">Age</td>
+                        <td class="w-50 main-field">@Html.TextAreaFor(model => model.Demographics.Age.Text, textAreaRows, textAreaColumns, null)</td>
+                        <td class="confidence">@Model.Demographics.Age.Score.ToString("#.##")</td>
+                        <td class="approve">Approve @Html.CheckBoxFor(model => model.Demographics.Age.IsApproved)</td>
                     </tr>
                 }
                 @if (Model.Demographics.Occupation?.Text != null)
                 {
                     <tr>
-                        <td>Occupation</td>
-                        <td>@Html.TextAreaFor(model => model.Demographics.Occupation.Text, textAreaRows, textAreaColumns, null)</td>
-                        <td>@Model.Demographics.Occupation.Score</td>
-                        <td>Approve @Html.CheckBoxFor(model => model.Demographics.Occupation.IsApproved)</td>
+                        <td class="w-25 label-field">Occupation</td>
+                        <td class="w-50 main-field">@Html.TextAreaFor(model => model.Demographics.Occupation.Text, textAreaRows, textAreaColumns, null)</td>
+                        <td class="confidence">@Model.Demographics.Occupation.Score.ToString("#.##")</td>
+                        <td class="approve">Approve @Html.CheckBoxFor(model => model.Demographics.Occupation.IsApproved)</td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-
-    <div>
-        <h3>Procedures</h3>
-        @if (Model.Procedures != null)
-        {
-            @foreach (var procedure in Model.Procedures)
-            {
-                <table class="table-striped">
-                    <tbody>
-                        <tr>
-                            <td>Description</td>
-                            <td>@Html.TextAreaFor(model => procedure.Description.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@procedure.Description.Score</td>
-                            <td>Approve @Html.CheckBoxFor(m => procedure.Description.IsApproved)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
-        }
-        else
-        {
-            <p>No procedure information was found</p>
-        }
     </div>
 
     <div>
@@ -72,13 +48,13 @@
         {
             @foreach (var dx in Model.Diagnoses)
             {
-                <table class="table-striped">
+                <table class="table-striped align-self-stretch">
                     <tbody>
                         <tr>
-                            <td>Description</td>
-                            <td>@Html.TextAreaFor(model => dx.Name.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@dx.Name.Score</td>
-                            <td>Approve @Html.CheckBoxFor(m => dx.Name.IsApproved)</td>
+                            <td class="w-25 label-field">Description</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => dx.Name.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td  class="confidence">@dx.Name.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(m => dx.Name.IsApproved)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,6 +66,31 @@
         }
     </div>
 
+    <div>
+        <h3>Procedures</h3>
+        @if (Model.Procedures != null)
+        {
+            @foreach (var procedure in Model.Procedures)
+            {
+                <table class="table-striped align-self-stretch">
+                    <tbody>
+                        <tr>
+                            <td class="w-25 label-field">Description</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => procedure.Description.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@procedure.Description.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(m => procedure.Description.IsApproved)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        }
+        else
+        {
+            <p>No procedure information was found</p>
+        }
+    </div>
+
+
 
     <div>
         <h3>Medical Conditions</h3>
@@ -97,13 +98,13 @@
         {
             @foreach (var condition in Model.ExistingConditions)
             {
-                <table class="table-striped">
+                <table class="table-striped align-self-stretch">
                     <tbody>
                         <tr>
-                            <td>Description</td>
-                            <td>@Html.TextAreaFor(model => condition.Description.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@condition.Description.Score</td>
-                            <td>Approve @Html.CheckBoxFor(m => condition.Description.IsApproved)</td>
+                            <td class="w-25 label-field">Description</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => condition.Description.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@condition.Description.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(m => condition.Description.IsApproved)</td>
                         </tr>
 
                         @if (condition.Sites != null)
@@ -111,15 +112,15 @@
                             @for (var i = 0; i < condition.Sites.Count(); i++)
                             {
                                 <tr>
-                                    <td>
+                                    <td class="w-25 label-field">
                                         @if (i == 0)
                                         {<span>Sites</span>}
-                                </td>
-                                <td>@Html.TextAreaFor(model => condition.Sites[i].Text, textAreaRows, textAreaColumns, null)</td>
-                                <td>@condition.Sites[i].Score</td>
-                                <td>Approve @Html.CheckBoxFor(m => condition.Sites[i].IsApproved)</td>
-                            </tr>
-                        }
+                                    </td>
+                                    <td class="w-50 main-field">@Html.TextAreaFor(model => condition.Sites[i].Text, textAreaRows, textAreaColumns, null)</td>
+                                    <td class="confidence">@condition.Sites[i].Score.ToString("#.##")</td>
+                                    <td class="approve">Approve @Html.CheckBoxFor(m => condition.Sites[i].IsApproved)</td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -138,48 +139,49 @@
         {
             @foreach (var med in Model.Medications)
             {
-                <table class="table-striped">
+                <h5>@med.Name.Text</h5>
+                <table class="table-striped align-self-stretch">
                     <tbody>
                         <tr>
-                            <td>Name</td>
-                            <td>@Html.TextAreaFor(model => med.Name.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@med.Name.Score</td>
-                            <td>Approve @Html.CheckBoxFor(m => med.Name.IsApproved)</td>
+                            <td class="w-25 label-field">Name</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => med.Name.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@med.Name.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(m => med.Name.IsApproved)</td>
                         </tr>
                         @if (med.Dosage?.Text != null)
                         {
                             <tr>
-                                <td>Dosage</td>
-                                <td>@Html.TextAreaFor(model => med.Dosage.Text, textAreaRows, textAreaColumns, null)</td>
-                                <td>@med.Dosage?.Score</td>
-                                <td>Approve @Html.CheckBoxFor(model => med.Dosage.IsApproved)</td>
+                                <td class="w-25 label-field">Dosage</td>
+                                <td class="w-50 main-field">@Html.TextAreaFor(model => med.Dosage.Text, textAreaRows, textAreaColumns, null)</td>
+                                <td class="confidence">@med.Dosage?.Score.ToString("#.##")</td>
+                                <td class="approve">Approve @Html.CheckBoxFor(model => med.Dosage.IsApproved)</td>
                             </tr>
                         }
                         @if (med.Frequency?.Text != null)
                         {
                             <tr>
-                                <td>Frequency</td>
-                                <td>@Html.TextAreaFor(model => med.Frequency.Text, textAreaRows, textAreaColumns, null)</td>
-                                <td>@med.Frequency?.Score</td>
-                                <td>Approve @Html.CheckBoxFor(model => med.Frequency.IsApproved)</td>
+                                <td class="w-25 label-field">Frequency</td>
+                                <td class="w-50 main-field">@Html.TextAreaFor(model => med.Frequency.Text, textAreaRows, textAreaColumns, null)</td>
+                                <td class="confidence">@med.Frequency?.Score.ToString("#.##")</td>
+                                <td class="approve">Approve @Html.CheckBoxFor(model => med.Frequency.IsApproved)</td>
                             </tr>
                         }
                         @if (med.Route?.Text != null)
                         {
                             <tr>
-                                <td>Route</td>
-                                <td>@Html.TextAreaFor(model => med.Route.Text, textAreaRows, textAreaColumns, null)</td>
-                                <td>@med.Route?.Score</td>
-                                <td>Approve @Html.CheckBoxFor(model => med.Route.IsApproved)</td>
+                                <td class="w-25 label-field">Route</td>
+                                <td class="w-50 main-field">@Html.TextAreaFor(model => med.Route.Text, textAreaRows, textAreaColumns, null)</td>
+                                <td class="confidence">@med.Route?.Score.ToString("#.##")</td>
+                                <td class="approve">Approve @Html.CheckBoxFor(model => med.Route.IsApproved)</td>
                             </tr>
                         }
                         @if (med.Strength?.Text != null)
                         {
                             <tr>
-                                <td>Strength</td>
-                                <td>@Html.TextAreaFor(model => med.Strength.Text, textAreaRows, textAreaColumns, null)</td>
-                                <td>@med.Strength?.Score</td>
-                                <td>Approve @Html.CheckBoxFor(model => med.Strength.IsApproved)</td>
+                                <td class="w-25 label-field">Strength</td>
+                                <td class="w-50 main-field">@Html.TextAreaFor(model => med.Strength.Text, textAreaRows, textAreaColumns, null)</td>
+                                <td class="confidence">@med.Strength?.Score.ToString("#.##")</td>
+                                <td class="approve">Approve @Html.CheckBoxFor(model => med.Strength.IsApproved)</td>
                             </tr>
                         }
                     </tbody>
@@ -198,13 +200,13 @@
         {
             @foreach (var allergy in Model.Allergies)
             {
-                <table class="table-striped">
+                <table class="table-striped align-self-stretch">
                     <tbody>
                         <tr>
-                            <td>Substance</td>
-                            <td>@Html.TextAreaFor(model => allergy.Name.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@allergy.Name.Score</td>
-                            <td>Approve @Html.CheckBoxFor(m => allergy.Name.IsApproved)</td>
+                            <td class="w-25 label-field">Substance</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => allergy.Name.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@allergy.Name.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(m => allergy.Name.IsApproved)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -220,42 +222,42 @@
         <h3>Social History</h3>
         @if (Model.SocialHistory != null)
         {
-            <table class="table-striped">
+            <table class="table-striped align-self-stretch">
                 <tbody>
                     @if (Model.SocialHistory.MaritalStatus?.Text != null)
                     {
                         <tr>
-                            <td>Marital Status</td>
-                            <td>@Html.TextAreaFor(model => model.SocialHistory.MaritalStatus.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@Model.SocialHistory.MaritalStatus?.Score</td>
-                            <td>Approve @Html.CheckBoxFor(model => model.SocialHistory.MaritalStatus.IsApproved)</td>
+                            <td class="w-25 label-field">Marital Status</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => model.SocialHistory.MaritalStatus.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@Model.SocialHistory.MaritalStatus?.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(model => model.SocialHistory.MaritalStatus.IsApproved)</td>
                         </tr>
                     }
                     @if (Model.SocialHistory.AlcoholUse?.Text != null)
                     {
                         <tr>
-                            <td>Alcohol Use</td>
-                            <td>@Html.TextAreaFor(model => model.SocialHistory.AlcoholUse.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@Model.SocialHistory.AlcoholUse?.Score</td>
-                            <td>Approve @Html.CheckBoxFor(model => model.SocialHistory.AlcoholUse.IsApproved)</td>
+                            <td class="w-25 label-field">Alcohol Use</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => model.SocialHistory.AlcoholUse.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@Model.SocialHistory.AlcoholUse?.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(model => model.SocialHistory.AlcoholUse.IsApproved)</td>
                         </tr>
                     }
                     @if (Model.SocialHistory.TobaccoUse?.Text != null)
                     {
                         <tr>
-                            <td>Tobacco Use</td>
-                            <td>@Html.TextAreaFor(model => model.SocialHistory.TobaccoUse.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@Model.SocialHistory.TobaccoUse?.Score</td>
-                            <td>Approve @Html.CheckBoxFor(model => model.SocialHistory.TobaccoUse.IsApproved)</td>
+                            <td class="w-25 label-field">Tobacco Use</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => model.SocialHistory.TobaccoUse.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@Model.SocialHistory.TobaccoUse?.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(model => model.SocialHistory.TobaccoUse.IsApproved)</td>
                         </tr>
                     }
                     @if (Model.SocialHistory.NarcoticsUse?.Text != null)
                     {
                         <tr>
-                            <td>Alcohol Use</td>
-                            <td>@Html.TextAreaFor(model => model.SocialHistory.NarcoticsUse.Text, textAreaRows, textAreaColumns, null)</td>
-                            <td>@Model.SocialHistory.NarcoticsUse?.Score</td>
-                            <td>Approve @Html.CheckBoxFor(model => model.SocialHistory.NarcoticsUse.IsApproved)</td>
+                            <td class="w-25 label-field">Alcohol Use</td>
+                            <td class="w-50 main-field">@Html.TextAreaFor(model => model.SocialHistory.NarcoticsUse.Text, textAreaRows, textAreaColumns, null)</td>
+                            <td class="confidence">@Model.SocialHistory.NarcoticsUse?.Score.ToString("#.##")</td>
+                            <td class="approve">Approve @Html.CheckBoxFor(model => model.SocialHistory.NarcoticsUse.IsApproved)</td>
                         </tr>
                     }
                 </tbody>
