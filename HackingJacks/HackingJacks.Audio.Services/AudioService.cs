@@ -31,17 +31,25 @@ namespace HackingJacks.Audio.Services
 
         public async Task<Result<MedicalAudio>> SaveAsync(Stream stream)
         {
-            //save stream to s3 and then save new medical audio in dynamno
-            string fileName = sendAudioFileToS3(_BucketName, stream);
-            var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);
-            var response = await client.GetObjectAsync(_BucketName, fileName);
-            using (var streamReader = new StreamReader(response.ResponseStream))
+            try
             {
-                var data = streamReader.ReadToEnd();
-                var medicalAudio = Newtonsoft.Json.JsonConvert.DeserializeObject<MedicalAudio>(data);
-                              
-                return await _audioRepository.SaveAsync(medicalAudio);
-            }            
+                //save stream to s3 and then save new medical audio in dynamno
+                string fileName = sendAudioFileToS3(_BucketName, stream);
+                var client = new AmazonS3Client(_publicKey, _privateKey, _regionEndPoint);
+                var response = await client.GetObjectAsync(_BucketName, fileName);
+                using (var streamReader = new StreamReader(response.ResponseStream))
+                {
+                    var data = streamReader.ReadToEnd();
+                    var medicalAudio = Newtonsoft.Json.JsonConvert.DeserializeObject<MedicalAudio>(data);
+
+                    return await _audioRepository.SaveAsync(medicalAudio);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return new Result<MedicalAudio>();
+            }
         }
 
         public Result<MedicalAudio> Save(MedicalAudio medicalAudio)
