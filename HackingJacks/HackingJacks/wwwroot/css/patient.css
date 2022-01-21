@@ -1,0 +1,23 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+td {
+  
+}
+
+.label-field {
+    font-weight: bold;
+}
+
+.confidence {
+    color: red;
+    font-size: small;
+}
+
+td.main-field {
+
+}
+
+td.approve {
+    align-content: end;
+}
