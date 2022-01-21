@@ -22,7 +22,7 @@ namespace HackingJacks.Audio.Domain.Repositories.Interfaces
             return new Result<MedicalAudio>(medicalAudio);
         }
 
-        public Result<MedicalAudio> Save(Stream stream)
+        public Result<MedicalAudio> SaveAsync(Stream stream)
         {
             //save stream to s3 and then save new medical audio in dynamno
             throw new NotImplementedException();

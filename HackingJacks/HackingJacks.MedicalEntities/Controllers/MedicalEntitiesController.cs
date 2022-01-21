@@ -23,28 +23,30 @@ namespace HackingJacks.MedicalEntities.Controllers
         }
 
         [HttpGet("processAudioFile/{fileName}")]
-        public async Task<JsonResult> ProcessTranscript(string fileName)
+        public async Task<ViewResult> ProcessAudioFile(string fileName)
         {
             var resultAudio = await _medicalTextService.TranscribeAsync(fileName);
             if (!resultAudio.Success)
             {
-                return Json(resultAudio.Error.ToString());
+                return null;
             }
 
             var resultText = await _medicalTextService.GetTranscribedTextAsync(resultAudio.Item.Id);
             if (!resultText.Success)
             {
-                return Json(resultText.Error.ToString());
+                return null;
             }
 
             var resultEntities = await _medicalEntityService.ProcessTextAsync(resultAudio.Item.Id, resultText.Item);
 
             if (!resultEntities.Success)
             {
-                return Json(resultEntities.Error.ToString());
+                return null;
             }
 
-            return Json(resultEntities.Item);
+            var patientModel = _medicalEntityService.MapPatient(resultEntities.Item);
+
+            return View("~/Views/Patient/Index.cshtml", patientModel);
         }
 
         [HttpGet("processTranscript/{id}")]

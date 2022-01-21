@@ -52,7 +52,7 @@ namespace HackingJacks.MedicalEntities.Services
             }
         }
 
-        public PatientModel MapPatientList(List<Entity> entities)
+        public PatientModel MapPatient(List<Entity> entities)
         {
             var demographicsModel = new PatientDemographicsModel();
 
